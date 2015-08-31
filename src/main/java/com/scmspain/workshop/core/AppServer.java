@@ -6,6 +6,9 @@ import com.netflix.client.config.DefaultClientConfigImpl;
 import com.netflix.client.config.IClientConfig;
 import com.netflix.config.DynamicPropertyFactory;
 import com.netflix.governator.annotations.Modules;
+import com.netflix.ribbon.Ribbon;
+import com.scmspain.workshop.command.CampaignRibbonCommandAlt;
+import com.scmspain.workshop.command.CampaignRibbonCommandAltImpl;
 import com.scmspain.workshop.controller.ForlayoEndpoint;
 import com.scmspain.workshop.core.health.HealthCheck;
 import com.scmspain.workshop.security.AuthenticationManager;
@@ -46,6 +49,7 @@ public interface AppServer {
             bind(AuthenticationManagerInterface.class).to(AuthenticationManager.class);
             bind(ForlayoEndpoint.class).asEagerSingleton();
             bind(IClientConfig.class).to(DefaultClientConfigImpl.class);
+            bind(CampaignRibbonCommandAlt.class).toInstance(Ribbon.from(CampaignRibbonCommandAltImpl.class));
 
             super.configure();
         }
